@@ -1,0 +1,266 @@
+. Write a C++ program to read and print
+employee
+information with department and pf
+information using
+hierarchical inheritance.
+Code-
+ #include <iostream>
+#include <stdio.h>
+using namespace std;
+
+//Base Class - basicInfo
+class basicInfo {
+protected:
+    char name[30];
+    int empId;
+    char gender;
+
+public:
+    void getBasicInfo(void)
+    {
+        cout << "Enter Name: ";
+        cin.ignore(1);
+        cin.getline(name, 30);
+        cout << "Enter Emp. Id: ";
+        cin >> empId;
+        cout << "Enter Gender: ";
+        cin >> gender;
+    }
+};
+
+//Base Class - deptInfo
+class deptInfo : private basicInfo {
+protected:
+    char deptName[30];
+    char assignedWork[30];
+    int time2complete;
+
+public:
+    void getDeptInfo(void)
+    {
+        getBasicInfo(); //to get basic info of an employee
+        cout << "Enter Department Name: ";
+        cin.ignore(1);
+        cin.getline(deptName, 30);
+        cout << "Enter assigned work: ";
+        fflush(stdin);
+        cin.getline(assignedWork, 30);
+        cout << "Enter time in hours to complete work: ";
+        cin >> time2complete;
+    }
+    void printDeptInfo(void)
+    {
+        cout << "Employee's Information is: " << endl;
+        cout << "Basic Information...:" << endl;
+        cout << "Name: " << name << endl; //accessing protected data
+        cout << "Employee ID: " << empId << endl; //accessing protected data
+        cout << "Gender: " << gender << endl
+             << endl; //accessing protected data
+
+        cout << "Department Information...:" << endl;
+        cout << "Department Name: " << deptName << endl; //accessing protected data
+        cout << "Assigned Work: " << assignedWork << endl; //accessing protected data
+        cout << "Time to complete work: " << time2complete << endl; //accessing protected data
+    }
+};
+
+//another Base Class : loadInfo
+class loanInfo : private basicInfo {
+protected:
+    char loanDetails[30];
+    int loanAmount;
+
+public:
+    void getLoanInfo(void)
+    {
+        getBasicInfo(); //to get basic info of an employee
+        cout << "Enter Loan Details: ";
+        cin.ignore(1);
+        cin.getline(loanDetails, 30);
+        cout << "Enter loan amount: ";
+        cin >> loanAmount;
+    }
+    void printLoanInfo(void)
+    {
+        cout << "Employee's Information is: " << endl;
+        cout << "Basic Information...:" << endl;
+        cout << "Name: " << name << endl; //accessing protected data
+        cout << "Employee ID: " << empId << endl; //accessing protected data
+        cout << "Gender: " << gender << endl
+             << endl; //accessing protected data
+
+        cout << "Loan Information...:" << endl;
+        cout << "Loan Details: " << loanDetails << endl; //accessing protected data
+        cout << "Loan Amount : " << loanAmount << endl; //accessing protected data
+    }
+};
+
+int main()
+{
+    //read and print department information
+    deptInfo objD;
+
+    objD.getDeptInfo();
+    objD.printDeptInfo();
+
+    cout << endl
+         << endl;
+    //read and print loan information
+    loanInfo objL;
+
+    objL.getLoanInfo();
+    objL.printLoanInfo();
+
+    return 0;
+}
+
+2. Write a C++ Program to illustrates the
+use of Constructors in
+multilevel inheritance
+code-
+#include<iostream>
+using namespace std;
+  
+// Base class
+class A
+{
+    public:
+        A()
+        {
+            cout << "Base class A constructor \n";
+        }
+};
+  
+// Derived class B
+class B: public A
+{
+    public:
+        B()
+        {
+            cout << "Class B constructor \n";
+        }
+};
+  
+// Derived class C
+class C: public B
+{
+    public:
+        C()
+        {
+            cout << "Class C constructor \n";
+              
+        }
+};
+  
+// Driver code
+int main()
+{
+    C obj;
+    return 0;
+}
+
+3. Write a C++ Program to Overriding
+member functions using
+Inheritance.
+Code-
+#include <iostream>
+using namespace std;
+
+class Base {
+   public:
+    void print() {
+        cout << "Base Function" << endl;
+    }
+};
+
+class Derived : public Base {
+   public:
+    void print() {
+        cout << "Derived Function" << endl;
+    }
+};
+
+int main() {
+    Derived derived1;
+    derived1.print();
+    return 0;
+}
+
+
+4. Write a C++ Program to calculate the
+total mark of a student
+using the concept of inheritance and
+virtual base class.
+Code-
+#include<iostream.h>
+#include<conio.h>
+
+class student {
+    int rno;
+public:
+
+    void getnumber() {
+        cout << "Enter Roll No:";
+        cin>>rno;
+    }
+
+    void putnumber() {
+        cout << "\n\n\tRoll No:" << rno << "\n";
+    }
+};
+
+class test : virtual public student {
+public:
+    int part1, part2;
+
+    void getmarks() {
+        cout << "Enter Marks\n";
+        cout << "Part1:";
+        cin>>part1;
+        cout << "Part2:";
+        cin>>part2;
+    }
+
+    void putmarks() {
+        cout << "\tMarks Obtained\n";
+        cout << "\n\tPart1:" << part1;
+        cout << "\n\tPart2:" << part2;
+    }
+};
+
+class sports : public virtual student {
+public:
+    int score;
+
+    void getscore() {
+        cout << "Enter Sports Score:";
+        cin>>score;
+    }
+
+    void putscore() {
+        cout << "\n\tSports Score is:" << score;
+    }
+};
+
+class result : public test, public sports {
+    int total;
+public:
+
+    void display() {
+        total = part1 + part2 + score;
+        putnumber();
+        putmarks();
+        putscore();
+        cout << "\n\tTotal Score:" << total;
+    }
+};
+
+void main() {
+    result obj;
+    clrscr();
+    obj.getnumber();
+    obj.getmarks();
+    obj.getscore();
+    obj.display();
+    getch();
+}
